@@ -1,0 +1,62 @@
+body{
+    min-height: 90vh;
+    font-family:'Nunito Sans', sans-serif;
+}
+
+main{
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family:'Nunito Sans', sans-serif;
+}
+
+.contenedorPadre{
+    display: flex;
+}
+
+.styleArticulo{
+    margin: 0px 50px 0px 50px;
+    text-align: center;
+}
+
+.cantidadProducto{
+    margin-right: 15px;
+}
+
+.imagenProducto{
+    width: 10em;
+    height: 10em;
+}
+
+.formatoLi{
+    display: flex!important;
+    align-items: center;
+}
+
+.imgCarrito{
+    width: 2em;
+    height: 2em;
+    margin-right: 10px;
+}
+
+.divSeparadorDeNombre{
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0px 0px 5px;
+}
+
+.btnPagarClass{
+    width: 5em
+}
+
+.btnComprar{
+    width: 8em;
+    height: 3em;
+    cursor: pointer;
+    font-family:'Nunito Sans', sans-serif;
+    font-weight: bold;
+    font-size: 13px;
+    background-color: black;
+    color: white;
+}
