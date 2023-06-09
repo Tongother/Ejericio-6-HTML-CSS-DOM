@@ -2,7 +2,7 @@ const botonesComprar = document.querySelectorAll(".btnComprar");
 const ulElements = document.querySelector(".dropdown-menu");
 const avisoNoHayProducto = document.querySelector("#avisoNoHayProducto");
 const btnPagar = document.getElementById("btnPagar");
-let divSeparador, pElement, h6Element, cantidadProducto, index = [], vendedorPrincipal;
+let divSeparador, pElement, h6Element, cantidadProducto, vendedorPrincipal,index = [], indexCajas= [], contadorCajas=-1;
 var imgElement, vendedor, cantidadesProductos;
 
 var productos = [
@@ -13,12 +13,13 @@ var productos = [
 ];
 
 let vendedores = [
-    {personal1: "Juana", dineroObtenido1: 0},
-    {personal2: "Pedro", dineroObtenido2: 0},
-]
+    {personal1: "Juana", dineroObtenido1: 0, productosVendidos1:0, ventaDeAqua1:0, ventaDeEmocion1:0, ventaDeAlegria1:0, ventaDeFrescura1:0},
+    {personal2: "Pedro", dineroObtenido2: 0, productosVendidos2:0, ventaDeAqua2:0, ventaDeEmocion2:0, ventaDeAlegria2:0, ventaDeFrescura2:0},
+];
 
 
 function elementosCarrito(costo){
+    contadorCajas++;
         cantidadProducto = document.createElement("h6");
         cantidadProducto.classList.add("cantidadProducto");
 
@@ -73,15 +74,18 @@ function ponerProductosEnCarrito(nameBtn){
             cantidadesProductos = document.querySelectorAll(".cantidadProducto");
             index[0] = 1;
             productos[0].carrito1 = true;
+            indexCajas[0] = contadorCajas;
         }else if(productos[0].carrito1 ===true){
             index[0]++;
             if(vendedor === "1"){
                 vendedores[0].dineroObtenido1 += productos[0].costo1;
+                vendedores[0].ventaDeAqua1 = index[0];
             }else if(vendedor === "2"){
                 vendedores[1].dineroObtenido2 += productos[0].costo1;
+                vendedores[1].ventaDeAqua2 = index[0];
             }
         }
-        cantidadesProductos[0].innerHTML = `${index[0]}`;
+        cantidadesProductos[indexCajas[0]].innerHTML = `${index[0]}`;
     }else if(nameBtn === "btn2"){
         if(productos[1].carrito2 === false){
             elementosCarrito(productos[1].costo2);
@@ -90,15 +94,18 @@ function ponerProductosEnCarrito(nameBtn){
             cantidadesProductos = document.querySelectorAll(".cantidadProducto");
             index[1] = 1;
             productos[1].carrito2 = true;
+            indexCajas[1] = contadorCajas;
         }else if(productos[1].carrito2 === true){
             index[1]++;
             if(vendedor === "1"){
                 vendedores[0].dineroObtenido1 += productos[1].costo2;
+                vendedores[0].ventaDeEmocion1 = index[1];
             }else if(vendedor === "2"){
                 vendedores[1].dineroObtenido2 += productos[1].costo2;
+                vendedores[1].ventaDeEmocion2 = index[1];
             }
         }
-        cantidadesProductos[1].innerHTML = `${index[1]}`;
+        cantidadesProductos[indexCajas[1]].innerHTML = `${index[1]}`;
     }else if(nameBtn === "btn3"){
         if(productos[2].carrito3 === false){
             elementosCarrito(productos[2].costo3);
@@ -107,15 +114,18 @@ function ponerProductosEnCarrito(nameBtn){
             cantidadesProductos = document.querySelectorAll(".cantidadProducto");
             productos[2].carrito3 = true;
             index[2] = 1;
+            indexCajas[2] = contadorCajas;
         }else if(productos[2].carrito3 === true){
             index[2]++;
             if(vendedor === "1"){
                 vendedores[0].dineroObtenido1 += productos[2].costo3;
+                vendedores[0].ventaDeAlegria1 = index[2];
             }else if(vendedor === "2"){
                 vendedores[1].dineroObtenido2 += productos[2].costo3;
+                vendedores[1].ventaDeAlegria2 = index[2];
             }
         }
-        cantidadesProductos[2].innerHTML = `${index[2]}`;
+        cantidadesProductos[indexCajas[2]].innerHTML = `${index[2]}`;
     }else if(nameBtn === "btn4"){
         if(productos[3].carrito4 === false){
             elementosCarrito(productos[3].costo4);
@@ -124,15 +134,18 @@ function ponerProductosEnCarrito(nameBtn){
             cantidadesProductos = document.querySelectorAll(".cantidadProducto");
             productos[3].carrito4 = true;
             index[3] = 1;
+            indexCajas[3] = contadorCajas;
         }else if(productos[3].carrito4 === true){
             index[3]++;
             if(vendedor === "1"){
                 vendedores[0].dineroObtenido1 += productos[3].costo4;
+                vendedores[0].ventaDeFrescura1 = index[3];
             }else if(vendedor === "2"){
                 vendedores[1].dineroObtenido2 += productos[3].costo4;
+                vendedores[1].ventaDeFrescura2 = index[3];
             }
         }
-        cantidadesProductos[3].innerHTML = `${index[3]}`;
+        cantidadesProductos[indexCajas[3]].innerHTML = `${index[3]}`;
     }
 
 }
@@ -144,14 +157,16 @@ for(i=0; i<=3; i++){
 }
 
 btnPagar.addEventListener("click" , () =>{
-    if(vendedores[0].dineroObtenido1 > vendedores[1].dineroObtenido2){
-        vendedorPrincipal = vendedores[0].personal1;
-    }else if(vendedores[0].dineroObtenido1 < vendedores[1].dineroObtenido2){
-        vendedorPrincipal = vendedores[1].personal2;
+    vendedores[0].productosVendidos1 = vendedores[0].ventaDeAlegria1 + vendedores[0].ventaDeAqua1 + vendedores[0].ventaDeEmocion1 + vendedores[0].ventaDeFrescura1;
+    vendedores[1].productosVendidos2 = vendedores[1].ventaDeAlegria2 + vendedores[1].ventaDeAqua2 + vendedores[1].ventaDeEmocion2 + vendedores[1].ventaDeFrescura2;
+    if(vendedores[0].productosVendidos1 > vendedores[1].productosVendidos2){
+        vendedorPrincipal = `${vendedores[0].personal1} con ${vendedores[0].productosVendidos1} productos`;;
+    }else if(vendedores[0].productosVendidos1 < vendedores[1].productosVendidos2){
+        vendedorPrincipal = `${vendedores[1].personal2} con ${vendedores[1].productosVendidos2} productos`;
     }else{
-        vendedorPrincipal = `La vendedora ${vendedores[0].personal1} y el vendedor ${vendedores[1].personal2} fueron sus principales vendedores`;
+        vendedorPrincipal = `los 2, la vendedora ${vendedores[0].personal1} y el vendedor ${vendedores[1].personal2} fueron sus principales vendedores con ${vendedores[0].productosVendidos1} productos`;
     }
 
-    console.log(`El total a pagar es: $${vendedores[0].dineroObtenido1 + vendedores[1].dineroObtenido2} uds \n Su vendedor principal fue: ${vendedorPrincipal}`);
+    console.log(`El total a pagar es: $${vendedores[0].dineroObtenido1 + vendedores[1].dineroObtenido2} uds \n Con Juana gasto: $${vendedores[0].dineroObtenido1} uds \n Con Pedro gasto: $${vendedores[1].dineroObtenido2} uds \n Su vendedor principal fue: ${vendedorPrincipal}`);
     alert(`El total a pagar es: $${vendedores[0].dineroObtenido1 + vendedores[1].dineroObtenido2} uds \n Su vendedor principal fue: ${vendedorPrincipal}`);
 });
