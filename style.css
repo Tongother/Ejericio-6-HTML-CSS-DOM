@@ -47,7 +47,8 @@ main{
 }
 
 .btnPagarClass{
-    width: 5em
+    width: 5em;
+    display: none;
 }
 
 .btnComprar{

@@ -48,6 +48,7 @@ function elementosCarrito(costo, venta){
         liElement.appendChild(divSeparador);
         divSeparador.appendChild(h6Element);
         divSeparador.appendChild(pElement);
+        btnPagar.style.display = "initial";
 }
 
 function seleccionDelVendedor(costo, venta){
@@ -195,8 +196,6 @@ for(i=0; i<=3; i++){
 }
 
 btnPagar.addEventListener("click" , () =>{
-    alert(vendedores[0].ventaDeAqua1);
-    alert(vendedores[1].ventaDeEmocion2);
     vendedores[0].productosVendidos1 = vendedores[0].ventaDeAlegria1 + vendedores[0].ventaDeAqua1 + vendedores[0].ventaDeEmocion1 + vendedores[0].ventaDeFrescura1;
     vendedores[1].productosVendidos2 = vendedores[1].ventaDeAlegria2 + vendedores[1].ventaDeAqua2 + vendedores[1].ventaDeEmocion2 + vendedores[1].ventaDeFrescura2;
 
